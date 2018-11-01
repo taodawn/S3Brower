@@ -29,30 +29,34 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  * #L%
  */
-package br.com.trustsystems.elfinder.command;
+package br.com.trustsystems.elfinder.core.impl;
 
-import br.com.trustsystems.elfinder.ElFinderConstants;
-import br.com.trustsystems.elfinder.core.ElfinderContext;
-import br.com.trustsystems.elfinder.service.ElfinderStorage;
-import br.com.trustsystems.elfinder.service.VolumeHandler;
-import org.json.JSONObject;
+import br.com.trustsystems.elfinder.core.Target;
+import br.com.trustsystems.elfinder.core.Volume;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
+import java.nio.file.Path;
 
-public class LsCommand extends AbstractJsonCommand implements ElfinderCommand {
+public class S3FileSystemTarget implements Target {
+
+    private final String path;
+    private final Volume volume;
+
+    public S3FileSystemTarget(S3FileSystemVolume volume, String path) {
+        this.path = path;
+        this.volume = volume;
+    }
+
     @Override
-    protected void execute(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
-        final String target = request.getParameter(ElFinderConstants.ELFINDER_PARAMETER_TARGET);
+    public Volume getVolume() {
+        return volume;
+    }
 
-        Map<String, VolumeHandler> files = new HashMap<>();
-        VolumeHandler volumeHandler = findTarget(elfinderStorage, target);
-        addChildren(files, volumeHandler);
+    public String getPath() {
+        return path;
+    }
 
-        json.put(ElFinderConstants.ELFINDER_PARAMETER_LIST, files.values());
-    }      @Override
-    protected void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
-
+    @Override
+    public String toString() {
+        return path;
     }
 }

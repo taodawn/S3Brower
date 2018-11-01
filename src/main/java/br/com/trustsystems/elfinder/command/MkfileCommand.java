@@ -32,6 +32,7 @@
 package br.com.trustsystems.elfinder.command;
 
 import br.com.trustsystems.elfinder.ElFinderConstants;
+import br.com.trustsystems.elfinder.core.ElfinderContext;
 import br.com.trustsystems.elfinder.service.ElfinderStorage;
 import br.com.trustsystems.elfinder.service.VolumeHandler;
 import org.json.JSONObject;
@@ -48,5 +49,8 @@ public class MkfileCommand extends AbstractJsonCommand implements ElfinderComman
         VolumeHandler newFile = new VolumeHandler(volumeHandler, fileName);
         newFile.createFile();
         json.put(ElFinderConstants.ELFINDER_JSON_RESPONSE_ADDED, new Object[]{getTargetInfo(request, newFile)});
+    }      @Override
+    protected void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
+
     }
 }

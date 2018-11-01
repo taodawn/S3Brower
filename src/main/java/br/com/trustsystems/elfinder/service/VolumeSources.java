@@ -35,6 +35,7 @@ import br.com.trustsystems.elfinder.configuration.ElfinderConfigurationUtils;
 import br.com.trustsystems.elfinder.core.Volume;
 import br.com.trustsystems.elfinder.core.VolumeBuilder;
 import br.com.trustsystems.elfinder.core.impl.NIO2FileSystemVolume;
+import br.com.trustsystems.elfinder.core.impl.S3FileSystemVolume;
 import br.com.trustsystems.elfinder.exception.VolumeSourceException;
 
 import java.nio.file.Paths;
@@ -48,12 +49,20 @@ import java.util.Arrays;
  */
 public enum VolumeSources {
 
-    FILESYSTEM {
+//    FILESYSTEM {
+//        @Override
+//        public VolumeBuilder<?> getVolumeBuilder(String alias, String path) {
+//            return NIO2FileSystemVolume.builder(alias, Paths.get(ElfinderConfigurationUtils.toURI(path)));
+//        }
+//    },
+    S3{
         @Override
         public VolumeBuilder<?> getVolumeBuilder(String alias, String path) {
-            return NIO2FileSystemVolume.builder(alias, Paths.get(ElfinderConfigurationUtils.toURI(path)));
+            return S3FileSystemVolume.builder(alias,path);
         }
     }
+
+
 //    ,DROPBOX, GOOGLEDRIVE, ONEDRIVE, ICLOUD
     ;
 
@@ -66,7 +75,7 @@ public enum VolumeSources {
             final String emptyString = "";
 
             source = Normalizer.normalize(source, Normalizer.Form.NFD);
-            source = source.replaceAll(notLetterRegex, emptyString);
+            //source = source.replaceAll(notLetterRegex, emptyString);
             source = source.replaceAll(whitespaceRegex, emptyString);
             source = source.replaceAll(notAsciiCharactersRegex, emptyString);
             source = source.trim().toUpperCase();
@@ -82,8 +91,8 @@ public enum VolumeSources {
     }
 
     public Volume newInstance(String alias, String path) {
-        if (path == null || path.trim().isEmpty())
-            throw new VolumeSourceException("Volume source path not informed");
+        //if (path == null || path.trim().isEmpty())
+        //    throw new VolumeSourceException("Volume source path not informed");
         return getVolumeBuilder(alias, path).build();
     }
 

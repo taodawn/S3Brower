@@ -31,9 +31,11 @@
  */
 package br.com.trustsystems.elfinder.command;
 
+import br.com.trustsystems.elfinder.core.ElfinderContext;
 import br.com.trustsystems.elfinder.service.ElfinderStorage;
 import br.com.trustsystems.elfinder.service.VolumeHandler;
 import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,6 +72,11 @@ public class FileCommand extends AbstractCommand implements ElfinderCommand {
             out.flush();
             out.close();
         }
+    }
+
+    @Override
+    public void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
     }
 
     private String getAttachementFileName(String fileName, String userAgent) throws UnsupportedEncodingException {

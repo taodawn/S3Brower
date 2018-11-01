@@ -32,6 +32,7 @@
 package br.com.trustsystems.elfinder.command;
 
 import br.com.trustsystems.elfinder.ElFinderConstants;
+import br.com.trustsystems.elfinder.core.ElfinderContext;
 import br.com.trustsystems.elfinder.service.ElfinderStorage;
 import br.com.trustsystems.elfinder.service.VolumeHandler;
 import org.apache.commons.io.IOUtils;
@@ -43,7 +44,10 @@ import java.io.OutputStream;
 public class PutCommand extends AbstractJsonCommand implements ElfinderCommand {
 
     public static final String ENCODING = "utf-8";
+    @Override
+    protected void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
 
+    }
     @Override
     protected void execute(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
         final String target = request.getParameter(ElFinderConstants.ELFINDER_PARAMETER_TARGET);

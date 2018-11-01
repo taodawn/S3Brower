@@ -37,4 +37,5 @@ public interface ElfinderCommand {
 
     void execute(ElfinderContext context) throws Exception;
 
+    void execute2(ElfinderContext context) throws Exception;
 }

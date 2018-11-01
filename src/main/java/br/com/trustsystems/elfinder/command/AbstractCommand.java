@@ -70,7 +70,14 @@ public abstract class AbstractCommand implements ElfinderCommand {
             }
         }
     }
-
+    protected void addSubFolders2(Map<String, VolumeHandler> map, VolumeHandler target) throws IOException {
+        for (VolumeHandler f : target.listChildren()) {
+            if (f.isFolder()) {
+                map.put(f.getHash(), f);
+                addSubFolders(map, f);
+            }
+        }
+    }
     protected void createAndCopy(VolumeHandler src, VolumeHandler dst) throws IOException {
         if (src.isFolder()) {
             createAndCopyFolder(src, dst);
@@ -105,8 +112,14 @@ public abstract class AbstractCommand implements ElfinderCommand {
         ElfinderStorage elfinderStorage = context.getVolumeSourceFactory().getVolumeSource();
         execute(elfinderStorage, context.getRequest(), context.getResponse());
     }
-
+    @Override
+    public void execute2(ElfinderContext context) throws Exception {
+        ElfinderStorage elfinderStorage = context.getVolumeSourceFactory().getVolumeSource();
+        execute2(elfinderStorage, context.getRequest(), context.getResponse());
+    }
     public abstract void execute(ElfinderStorage elfinderStorage, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+    public abstract void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
     protected Object[] buildJsonFilesArray(HttpServletRequest request, Collection<VolumeHandler> list) throws IOException {
         List<Map<String, Object>> jsonFileList = new ArrayList<>();

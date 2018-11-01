@@ -56,6 +56,7 @@
                                         <xs:enumeration value="dropbox"/>
                                         <xs:enumeration value="googledrive"/>
                                         <xs:enumeration value="onedrive"/>
+                                        <xs:enumeration value="s3"/>
                                     </xs:restriction>
                                 </xs:simpleType>
                             </xs:element>

@@ -32,6 +32,7 @@
 package br.com.trustsystems.elfinder.command;
 
 import br.com.trustsystems.elfinder.ElFinderConstants;
+import br.com.trustsystems.elfinder.core.ElfinderContext;
 import br.com.trustsystems.elfinder.service.ElfinderStorage;
 import br.com.trustsystems.elfinder.service.VolumeHandler;
 import org.json.JSONObject;
@@ -54,5 +55,8 @@ public class ParentsCommand extends AbstractJsonCommand implements ElfinderComma
         }
 
         json.put(ElFinderConstants.ELFINDER_PARAMETER_TREE, buildJsonFilesArray(request, files.values()));
+    }      @Override
+    protected void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
+
     }
 }

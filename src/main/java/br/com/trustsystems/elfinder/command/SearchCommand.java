@@ -32,6 +32,7 @@
 package br.com.trustsystems.elfinder.command;
 
 import br.com.trustsystems.elfinder.ElFinderConstants;
+import br.com.trustsystems.elfinder.core.ElfinderContext;
 import br.com.trustsystems.elfinder.core.Target;
 import br.com.trustsystems.elfinder.core.Volume;
 import br.com.trustsystems.elfinder.core.VolumeSecurity;
@@ -49,7 +50,10 @@ import java.util.List;
  * @author Thiago Gutenberg Carvalho da Costa
  */
 public class SearchCommand extends AbstractJsonCommand implements ElfinderCommand {
+    @Override
+    protected void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
 
+    }
     @Override
     protected void execute(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
 

@@ -5,18 +5,18 @@
  * %%
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice, this
  *    list of conditions and the following disclaimer.
- * 
+ *
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- * 
+ *
  * 3. Neither the name of the Trustsystems Desenvolvimento de Sistemas, LTDA. nor the names of its contributors
  *    may be used to endorse or promote products derived from this software without
  *    specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -44,6 +44,7 @@ public abstract class AbstractJsonCommand extends AbstractCommand {
     public static final String APPLICATION_JSON_CHARSET_UTF_8 = "application/json; charset=UTF-8";
 
     protected abstract void execute(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception;
+    protected abstract void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception;
 
     @Override
     final public void execute(ElfinderStorage elfinderStorage, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -54,6 +55,7 @@ public abstract class AbstractJsonCommand extends AbstractCommand {
             execute(elfinderStorage, request, json);
             response.setContentType(APPLICATION_JSON_CHARSET_UTF_8);
             json.write(writer);
+            System.out.println(json.toString());
             writer.flush();
         } catch (Exception e) {
             logger.error("Unable to execute abstract json command", e);
@@ -61,4 +63,20 @@ public abstract class AbstractJsonCommand extends AbstractCommand {
         }
     }
 
+    @Override
+    final public void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        JSONObject json = new JSONObject();
+
+        try (PrintWriter writer = response.getWriter()) {
+            execute2(elfinderStorage, request, json);
+            response.setContentType(APPLICATION_JSON_CHARSET_UTF_8);
+            json.write(writer);
+            System.out.println(json.toString());
+            writer.flush();
+        } catch (Exception e) {
+            logger.error("Unable to execute abstract json command", e);
+            json.put(ElFinderConstants.ELFINDER_JSON_RESPONSE_ERROR, e.getMessage());
+        }
+    }
 }

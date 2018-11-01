@@ -9,14 +9,14 @@
 
     <name>elfinder-demo</name>
 
-    <!-- http://www.slf4j.org/faq.html#excludingJCL
+    <!-- http://www.slf4j.org/faq.html#excludingJCL-->
     <repositories>
         <repository>
             <id>commons-logging-empty</id>
             <name>empty artifacts for commons-logging and log4j</name>
             <url>http://version99.qos.ch/</url>
         </repository>
-    </repositories>-->
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -135,19 +135,22 @@
             <groupId>com.mortennobel</groupId>
             <artifactId>java-image-scaling</artifactId>
             <version>${java-image-scaling.version}</version>
-        </dependency>    <dependency>
-        <groupId>commons-fileupload</groupId>
-        <artifactId>commons-fileupload</artifactId>
-        <version>${commons-fileupload.version}</version>
-    </dependency><dependency>
-        <groupId>commons-codec</groupId>
-        <artifactId>commons-codec</artifactId>
-        <version>${commons-codec.version}</version>
-    </dependency>   <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-compress</artifactId>
-        <version>${commons-compress.version}</version>
-    </dependency>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileupload.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>${commons-compress.version}</version>
+        </dependency>
     </dependencies>
 
 

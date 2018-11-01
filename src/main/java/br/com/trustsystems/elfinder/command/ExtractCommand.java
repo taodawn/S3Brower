@@ -32,6 +32,7 @@
 package br.com.trustsystems.elfinder.command;
 
 import br.com.trustsystems.elfinder.ElFinderConstants;
+import br.com.trustsystems.elfinder.core.ElfinderContext;
 import br.com.trustsystems.elfinder.core.Target;
 import br.com.trustsystems.elfinder.core.Volume;
 import br.com.trustsystems.elfinder.service.ElfinderStorage;
@@ -48,7 +49,10 @@ import javax.servlet.http.HttpServletRequest;
  * @author Thiago Gutenberg Carvalho da Costa
  */
 public class ExtractCommand extends AbstractJsonCommand implements ElfinderCommand {
+    @Override
+    protected void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
 
+    }
     @Override
     protected void execute(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
         final String targetHash = request.getParameter(ElFinderConstants.ELFINDER_PARAMETER_TARGET);

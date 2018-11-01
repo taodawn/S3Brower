@@ -32,6 +32,7 @@
 package br.com.trustsystems.elfinder.command;
 
 import br.com.trustsystems.elfinder.ElFinderConstants;
+import br.com.trustsystems.elfinder.core.ElfinderContext;
 import br.com.trustsystems.elfinder.service.ElfinderStorage;
 import br.com.trustsystems.elfinder.service.VolumeHandler;
 import org.json.JSONObject;
@@ -50,5 +51,8 @@ public class RenameCommand extends AbstractJsonCommand implements ElfinderComman
 
         json.put(ElFinderConstants.ELFINDER_JSON_RESPONSE_ADDED, new Object[]{getTargetInfo(request, destination)});
         json.put(ElFinderConstants.ELFINDER_JSON_RESPONSE_REMOVED, new String[]{target});
+    }      @Override
+    protected void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
+
     }
 }

@@ -32,6 +32,7 @@
 package br.com.trustsystems.elfinder.command;
 
 import br.com.trustsystems.elfinder.ElFinderConstants;
+import br.com.trustsystems.elfinder.core.ElfinderContext;
 import br.com.trustsystems.elfinder.core.Target;
 import br.com.trustsystems.elfinder.service.ElfinderStorage;
 import br.com.trustsystems.elfinder.service.VolumeHandler;
@@ -66,6 +67,11 @@ public class ArchiveCommand extends AbstractJsonCommand implements ElfinderComma
         } catch (Exception e) {
             json.put(ElFinderConstants.ELFINDER_JSON_RESPONSE_ERROR, "Unable to create the archive! Error: " + e);
         }
+
+    }
+
+    @Override
+    protected void execute2(ElfinderStorage elfinderStorage, HttpServletRequest request, JSONObject json) throws Exception {
 
     }
 }

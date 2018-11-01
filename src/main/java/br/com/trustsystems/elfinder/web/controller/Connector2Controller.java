@@ -62,9 +62,9 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("connector")
-public class ConnectorController {
-    private static final Logger logger = LoggerFactory.getLogger(ConnectorController.class);
+@RequestMapping("connector2")
+public class Connector2Controller {
+    private static final Logger logger = LoggerFactory.getLogger(Connector2Controller.class);
 
     public static final String OPEN_STREAM = "openStream";
     public static final String GET_PARAMETER = "getParameter";
@@ -91,7 +91,7 @@ public class ConnectorController {
 
         try {
             final HttpServletRequest protectedRequest = request;
-            elfinderCommand.execute(new ElfinderContext() {
+            elfinderCommand.execute2(new ElfinderContext() {
                 @Override
                 public ElfinderStorageFactory getVolumeSourceFactory() {
                     return elfinderStorageFactory;
