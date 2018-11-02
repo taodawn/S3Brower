@@ -92,9 +92,17 @@ public class OpenCommand extends AbstractJsonCommand implements ElfinderCommand 
             for (Volume volume : elfinderStorage.getVolumes()) {
                 VolumeHandler root = new VolumeHandler(volume.getRoot(), elfinderStorage);
                 files.put(root.getHash(), root);
-                addSubFolders(files, root);
+                addSubFolders2(files, root);
             }
         }
+
+        VolumeHandler cwd = findCwd(elfinderStorage, target);
+        files.put(cwd.getHash(), cwd);
+        addChildren(files, cwd);
+
+        json.put(ElFinderConstants.ELFINDER_PARAMETER_FILES, buildJsonFilesArray(request, files.values()));
+        json.put(ElFinderConstants.ELFINDER_PARAMETER_CWD, getTargetInfo(request, cwd));
+        json.put(ElFinderConstants.ELFINDER_PARAMETER_OPTIONS, getOptions(cwd));
     }
 
 

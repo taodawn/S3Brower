@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class S3FileSystemVolume implements Volume {
@@ -114,12 +115,18 @@ public class S3FileSystemVolume implements Volume {
 
     @Override
     public boolean isRoot(Target target) throws IOException {
-        return false;
+        return getRootDir().equals(fromTarget(target));
     }
 
     @Override
     public Target[] listChildren(Target target) throws IOException {
-        return new Target[0];
+//        List<String> childrenResultList = NioHelper.listChildrenNotHidden(fromTarget(target));
+//        List<Target> targets = new ArrayList<>(childrenResultList.size());
+//        for (Path path : childrenResultList) {
+//            targets.add(fromPath(path));
+//        }
+//        return targets.toArray(new Target[targets.size()]);
+        return  null;
     }
 
     @Override

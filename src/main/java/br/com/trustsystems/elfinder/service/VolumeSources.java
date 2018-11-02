@@ -49,12 +49,12 @@ import java.util.Arrays;
  */
 public enum VolumeSources {
 
-//    FILESYSTEM {
-//        @Override
-//        public VolumeBuilder<?> getVolumeBuilder(String alias, String path) {
-//            return NIO2FileSystemVolume.builder(alias, Paths.get(ElfinderConfigurationUtils.toURI(path)));
-//        }
-//    },
+    FILESYSTEM {
+        @Override
+        public VolumeBuilder<?> getVolumeBuilder(String alias, String path) {
+            return NIO2FileSystemVolume.builder(alias, Paths.get(ElfinderConfigurationUtils.toURI(path)));
+        }
+    },
     S3{
         @Override
         public VolumeBuilder<?> getVolumeBuilder(String alias, String path) {
