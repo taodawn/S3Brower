@@ -84,7 +84,7 @@ public enum VolumeSources {
                 if (volumesource.name().equalsIgnoreCase(source)) {
                     return volumesource;
                 }
-                throw new VolumeSourceException("Volume source not supported! The supported volumes sources are: " + Arrays.deepToString(values()).toLowerCase());
+                //throw new VolumeSourceException("Volume source not supported! The supported volumes sources are: " + Arrays.deepToString(values()).toLowerCase());
             }
         }
         throw new VolumeSourceException("Volume source not informed in elfinder configuration xml!");

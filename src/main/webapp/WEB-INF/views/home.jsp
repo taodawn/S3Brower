@@ -33,7 +33,7 @@
 		// https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
 		$(document).ready(function() {
 			$('#elfinder').elfinder({
-				url : 'connector',  // connector URL (REQUIRED)
+				url : 'connector2',  // connector URL (REQUIRED)
 				lang: 'en_US'                    // language (OPTIONAL)
 			});
 		});

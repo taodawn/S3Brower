@@ -1,5 +1,6 @@
 package br.com.trustsystems.elfinder.core.impl;
 
+import br.com.trustsystems.elfinder.DBUtils;
 import br.com.trustsystems.elfinder.core.Target;
 import br.com.trustsystems.elfinder.core.Volume;
 import br.com.trustsystems.elfinder.core.VolumeBuilder;
@@ -7,8 +8,8 @@ import br.com.trustsystems.elfinder.core.VolumeBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class S3FileSystemVolume implements Volume {
@@ -61,27 +62,50 @@ public class S3FileSystemVolume implements Volume {
 
     @Override
     public long getLastModified(Target target) throws IOException {
-        return 0;
+        return (new Date()).getTime();
     }
 
     @Override
     public String getMimeType(Target target) throws IOException {
-        return null;
+        String path = ((S3FileSystemTarget) target).getPath();
+        if(path.endsWith("jpg")){
+            return "image/jpeg";
+        }else if(path.endsWith("txt")){
+            return "text/plain";
+        }
+        return "directory";
     }
 
     @Override
     public String getAlias() {
-        return null;
+        return alias;
     }
 
     @Override
     public String getName(Target target) {
-        return null;
+        String path = ((S3FileSystemTarget) target).getPath();
+        String p = "";
+        if (path.endsWith("/")) {
+            String tmp = path.substring(0, path.length() - 1);
+            p = (tmp.substring(tmp.lastIndexOf("/") + 1));
+        } else {
+            p = (path.substring(path.lastIndexOf("/") + 1));
+        }
+        return p;
+
     }
 
     @Override
     public Target getParent(Target target) {
-        return null;
+        String path = ((S3FileSystemTarget) target).getPath();
+        String p = "";
+        if (path.endsWith("/")) {
+            String tmp = path.substring(0, path.length() - 1);
+            p = (tmp.substring(0, tmp.lastIndexOf("/") + 1));
+        } else {
+            p = (path.substring(0, path.lastIndexOf("/") + 1));
+        }
+        return fromPath(p);
     }
 
     public static String fromTarget(Target target) {
@@ -105,12 +129,24 @@ public class S3FileSystemVolume implements Volume {
 
     @Override
     public boolean hasChildFolder(Target target) throws IOException {
+        if (!((S3FileSystemTarget) target).getPath().endsWith("/")) {
+            return false;
+        }
+        List<String> childrenResultList = DBUtils.search("select path from s3 where bucket='" + getAlias() + "' and path like '" + ((S3FileSystemTarget) target).getPath() + "%' ");
+
+        List<Target> targets = new ArrayList<>(childrenResultList.size());
+        for (String path : childrenResultList) {
+            if (path.indexOf("/", ((S3FileSystemTarget) target).getPath().length() + 1) > 0) {
+                return true;
+            }
+        }
+
         return false;
     }
 
     @Override
     public boolean isFolder(Target target) {
-        return false;
+        return ((S3FileSystemTarget) target).getPath().endsWith("/");
     }
 
     @Override
@@ -120,13 +156,26 @@ public class S3FileSystemVolume implements Volume {
 
     @Override
     public Target[] listChildren(Target target) throws IOException {
-//        List<String> childrenResultList = NioHelper.listChildrenNotHidden(fromTarget(target));
-//        List<Target> targets = new ArrayList<>(childrenResultList.size());
-//        for (Path path : childrenResultList) {
-//            targets.add(fromPath(path));
-//        }
-//        return targets.toArray(new Target[targets.size()]);
-        return  null;
+        List<String> childrenResultList = DBUtils.search("select path from s3 where bucket='" + getAlias() + "' and path like '" + ((S3FileSystemTarget) target).getPath() + "%' ");
+
+        List<Target> targets = new ArrayList<>(childrenResultList.size());
+        for (String path : childrenResultList) {
+            String p = ((S3FileSystemTarget) target).getPath();
+            int i = path.indexOf("/", p.length());
+            if (i < 0) {
+                if (targets.contains(fromPath(path))) {
+                    continue;
+                }
+                targets.add(fromPath(path));
+            } else {
+                if (targets.contains(fromPath(path.substring(0, i + 1)))) {
+                    continue;
+                }
+                targets.add(fromPath(path.substring(0, i + 1)));
+            }
+        }
+        return targets.toArray(new Target[targets.size()]);
+
     }
 
     @Override
