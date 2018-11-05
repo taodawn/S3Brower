@@ -68,12 +68,19 @@ public class S3FileSystemVolume implements Volume {
     @Override
     public String getMimeType(Target target) throws IOException {
         String path = ((S3FileSystemTarget) target).getPath();
+        if(path.endsWith("/")){
+            return "directory";
+        }
         if(path.endsWith("jpg")){
             return "image/jpeg";
         }else if(path.endsWith("txt")){
             return "text/plain";
+        }else if(path.endsWith("png")){
+            return "image/png";
+        }else{
+            return "application/octet-stream";
         }
-        return "directory";
+
     }
 
     @Override

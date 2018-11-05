@@ -49,6 +49,10 @@ public class VolumeHandler {
     private final VolumeSecurity volumeSecurity;
     private final ElfinderStorage elfinderStorage;
 
+    public Target getTarget(){
+        return this.target;
+    }
+
     public VolumeHandler(Target target, ElfinderStorage elfinderStorage) {
         this.target = target;
         this.volume = target.getVolume();
@@ -59,7 +63,8 @@ public class VolumeHandler {
     public VolumeHandler(VolumeHandler parent, String name) throws IOException {
         this.volume = parent.volume;
         this.elfinderStorage = parent.elfinderStorage;
-        this.target = volume.fromPath(volume.getPath(parent.target) + ElFinderConstants.ELFINDER_PARAMETER_FILE_SEPARATOR + name);
+        this.target = volume.fromPath(volume.getPath(parent.target)  + name);
+        //this.target = volume.fromPath(volume.getPath(parent.target) + ElFinderConstants.ELFINDER_PARAMETER_FILE_SEPARATOR + name);
         this.volumeSecurity = elfinderStorage.getVolumeSecurity(target);
     }
 

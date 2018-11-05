@@ -31,9 +31,11 @@
  */
 package br.com.trustsystems.elfinder.command;
 
+import br.com.trustsystems.elfinder.DBUtils;
 import br.com.trustsystems.elfinder.ElFinderConstants;
 import br.com.trustsystems.elfinder.S3Utils;
 import br.com.trustsystems.elfinder.core.ElfinderContext;
+import br.com.trustsystems.elfinder.core.impl.S3FileSystemTarget;
 import br.com.trustsystems.elfinder.service.ElfinderStorage;
 import br.com.trustsystems.elfinder.service.VolumeHandler;
 import org.apache.commons.fileupload.FileItemStream;
@@ -60,10 +62,14 @@ public class UploadCommand extends AbstractJsonCommand implements ElfinderComman
             String contentType = file.getContentType();
             VolumeHandler newFile = new VolumeHandler(parentDir, fileName);
 
-//            InputStream is = file.openStream();
-//            S3Utils.putObject(newFile.getName());
-//            is.close();
+            InputStream is = file.openStream();
+            String key=(((S3FileSystemTarget)newFile.getTarget()).getPath());
+            S3Utils.putObject(key,is,contentType);
+            is.close();
 
+            String sql ="insert into s3 (bucket,path) values('"+parentDir.getVolumeAlias()+"','"+key+"')";
+            System.out.println(sql);
+            DBUtils.insert(sql);
             added.add(newFile);
         }
 
