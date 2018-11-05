@@ -3330,20 +3330,23 @@ elFinder.prototype._options = {
 		// toolbar configuration
 		toolbar : [
 			['back', 'forward'],
-			['netmount'],
+			//['netmount'],
 			// ['reload'],
 			// ['home', 'up'],
-			['mkdir', 'mkfile', 'upload'],
-			['open', 'download', 'getfile'],
+            ['mkdir', 'upload'],
+            //['mkdir', 'mkfile', 'upload'],
+			//['open', 'download', 'getfile'],
+            [ 'getfile'],
 			['info'],
-			['quicklook'],
-			['copy', 'cut', 'paste'],
+			//['quicklook'],
+			//['copy', 'cut', 'paste'],
 			['rm'],
-			['duplicate', 'rename', 'edit', 'resize'],
-			['extract', 'archive'],
+			//['duplicate', 'rename', 'edit', 'resize'],
+			//['extract', 'archive'],
 			['search'],
-			['view', 'sort'],
-			['help']
+			['view']
+			//['view', 'sort']
+			//['help']
 		],
 		// directories tree options
 		tree : {
@@ -4356,7 +4359,7 @@ if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object'
 			'cmdview'      : 'View',
 			'cmdresize'    : 'Resize & Rotate',
 			'cmdsort'      : 'Sort',
-			'cmdnetmount'  : 'Mount network volume', // added 18.04.2012
+			'cmdnetmount'  : 'Mount network volumeuu', // added 18.04.2012
 			
 			/*********************************** buttons ***********************************/ 
 			'btnClose'  : 'Close',
@@ -4512,7 +4515,7 @@ if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object'
 			'rotate-cw'       : 'Rotate 90 degrees CW',
 			'rotate-ccw'      : 'Rotate 90 degrees CCW',
 			'degree'          : '°',
-			'netMountDialogTitle' : 'Mount network volume', // added 18.04.2012
+			'netMountDialogTitle' : 'Mount network volume2', // added 18.04.2012
 			'protocol'            : 'Protocol', // added 18.04.2012
 			'host'                : 'Host', // added 18.04.2012
 			'port'                : 'Port', // added 18.04.2012

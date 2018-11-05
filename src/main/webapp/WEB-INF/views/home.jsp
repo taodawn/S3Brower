@@ -18,14 +18,14 @@
             crossorigin="anonymous"></script>
 
     <!-- elFinder CSS (REQUIRED) -->
-    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/elfinder.min.css" />">
+    <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/elfinder.full.css" />">
     <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/resources/css/theme.css" />">
 
     <!-- elFinder JS (REQUIRED) -->
-    <script type="text/javascript" src="<c:url value="/resources/js/elfinder.min.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/elfinder.full.js" />"></script>
 
     <!-- elFinder translation (OPTIONAL) -->
-    <script type="text/javascript" src="<c:url value="/resources/js/i18n/elfinder.pt_BR.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/i18n/elfinder.LANG.js" />"></script>
 
     <!-- elFinder initialization (REQUIRED) -->
     <script type="text/javascript" charset="utf-8">

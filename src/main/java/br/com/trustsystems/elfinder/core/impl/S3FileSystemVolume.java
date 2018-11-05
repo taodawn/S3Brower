@@ -156,22 +156,28 @@ public class S3FileSystemVolume implements Volume {
 
     @Override
     public Target[] listChildren(Target target) throws IOException {
-        List<String> childrenResultList = DBUtils.search("select path from s3 where bucket='" + getAlias() + "' and path like '" + ((S3FileSystemTarget) target).getPath() + "%' ");
+        List<String> childrenResultList = DBUtils.search("select path from s3 where bucket='" + getAlias() + "' and path like '" + ((S3FileSystemTarget) target).getPath() + "%' order by path");
 
         List<Target> targets = new ArrayList<>(childrenResultList.size());
+        String p = ((S3FileSystemTarget) target).getPath();
+        String latestPath="";
         for (String path : childrenResultList) {
-            String p = ((S3FileSystemTarget) target).getPath();
+            if(path.equals(p)){
+                continue;
+            }
             int i = path.indexOf("/", p.length());
             if (i < 0) {
-                if (targets.contains(fromPath(path))) {
+                if (latestPath.equals(path)) {
                     continue;
                 }
                 targets.add(fromPath(path));
+                latestPath = path;
             } else {
-                if (targets.contains(fromPath(path.substring(0, i + 1)))) {
+                if (latestPath.equals((path.substring(0, i + 1)))) {
                     continue;
                 }
                 targets.add(fromPath(path.substring(0, i + 1)));
+                latestPath = path.substring(0, i + 1);
             }
         }
         return targets.toArray(new Target[targets.size()]);

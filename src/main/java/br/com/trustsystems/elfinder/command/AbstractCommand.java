@@ -74,7 +74,7 @@ public abstract class AbstractCommand implements ElfinderCommand {
         for (VolumeHandler f : target.listChildren()) {
             if (f.isFolder()) {
                 map.put(f.getHash(), f);
-                addSubFolders2(map, f);
+                //addSubFolders2(map, f);
             }
         }
     }
